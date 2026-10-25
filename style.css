@@ -1,0 +1,55 @@
+:root{--c:#22d3ee;--m:#f472b6;--v:#8b5cf6;--bg:#050816}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{overscroll-behavior:none}
+body{background:var(--bg);color:#dff6ff;font-family:'Orbitron','Segoe UI',system-ui,sans-serif;min-height:100dvh;display:flex;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background:
+ linear-gradient(#22d3ee12 1px,transparent 1px) 0 0/40px 40px,
+ linear-gradient(90deg,#22d3ee12 1px,transparent 1px) 0 0/40px 40px,
+ radial-gradient(circle at 50% -10%,#5b21b688,transparent 60%),
+ radial-gradient(circle at 50% 110%,#0e749055,transparent 55%)}
+main{position:relative;margin:auto;width:100%;max-width:560px;padding:max(14px,env(safe-area-inset-top)) 14px 14px}
+.screen{display:none;flex-direction:column;align-items:center;text-align:center;gap:clamp(10px,2.4vh,18px)}
+.screen.on{display:flex}
+.screen.on:not(#game){background:#0a1128cc;border:1px solid #22d3ee55;border-radius:18px;padding:clamp(18px,5vw,34px);backdrop-filter:blur(6px);box-shadow:0 0 34px #22d3ee22 inset,0 0 40px #8b5cf633}
+h1{font-size:clamp(2rem,10vw,3.6rem);font-weight:800;letter-spacing:3px;color:#fff;text-shadow:0 0 18px var(--v),0 0 4px #fff}
+h1 span{color:var(--c);text-shadow:0 0 18px var(--c)}
+h2{font-size:clamp(1.3rem,5vw,1.8rem);color:var(--c);text-shadow:0 0 14px var(--c)}
+.note{font-family:'Segoe UI',system-ui,sans-serif;font-size:.9rem;opacity:.8;line-height:1.6}
+.row{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+.btn{background:linear-gradient(135deg,#7c3aed,#4c1d95);color:#fff;border:1px solid #c4b5fd;border-radius:8px;padding:14px 26px;font:700 1rem 'Orbitron',system-ui,sans-serif;letter-spacing:2px;text-transform:uppercase;cursor:pointer;width:min(100%,280px);box-shadow:0 0 16px #8b5cf688,inset 0 0 12px #ffffff22;transition:transform .1s,box-shadow .2s}
+.btn.alt{background:linear-gradient(135deg,#0891b2,#164e63);border-color:var(--c);box-shadow:0 0 16px #22d3ee88,inset 0 0 12px #ffffff22}
+.btn:hover{box-shadow:0 0 26px #fff6}
+.btn:active{transform:scale(.97)}
+.btn.sel{outline:2px solid #facc15;outline-offset:2px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+#nsel .btn{width:68px;padding:12px 0}
+.link{background:none;border:0;color:#a5b4fc;font:.9rem 'Segoe UI',system-ui,sans-serif;text-decoration:underline;cursor:pointer;padding:10px}
+input{background:#050816;color:#fff;border:1px solid var(--c);border-radius:8px;padding:14px;width:140px;text-align:center;font:700 1.2rem 'Orbitron',monospace;text-transform:uppercase;letter-spacing:6px;box-shadow:0 0 12px #22d3ee44 inset}
+#roomCode{color:#facc15;letter-spacing:6px;text-shadow:0 0 12px #facc15}
+#plist{list-style:none;display:flex;flex-direction:column;gap:8px;width:min(340px,100%)}
+#plist li{background:#050816;border:1px solid #22d3ee44;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;font:.85rem 'Segoe UI',system-ui,sans-serif;text-align:left}
+#plist i{width:16px;height:16px;border-radius:50%;display:inline-block;box-shadow:0 0 10px currentColor}
+
+/* ----- Jogo (tela cheia) ----- */
+#game.on{position:fixed;inset:0;z-index:5;background:var(--bg);padding:0;gap:0;display:flex;flex-direction:column}
+#stage{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
+canvas{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;background:#000;touch-action:none;filter:drop-shadow(0 0 14px #8b5cf688)}
+#rot{display:none;position:absolute;top:calc(env(safe-area-inset-top) + 6px);left:50%;transform:translateX(-50%);background:#050816cc;border:1px solid var(--c);border-radius:20px;padding:4px 12px;font-size:.65rem;color:var(--c);white-space:nowrap;z-index:6;pointer-events:none}
+@media (orientation:portrait){#rot{display:block}}
+#game button#bExit,#game button#bFull{position:absolute;top:calc(env(safe-area-inset-top) + 34px);width:38px;height:38px;border-radius:8px;border:1px solid #22d3ee88;background:#050816aa;color:var(--c);font-size:1.1rem;cursor:pointer;z-index:7}
+#bExit{right:8px}#bFull{right:54px}
+#pad{display:flex;justify-content:space-between;align-items:flex-end;gap:6px;width:100%;padding:8px max(8px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));flex-shrink:0}
+.grp{display:flex;gap:6px}
+.grp button{width:clamp(54px,13vw,110px);height:clamp(54px,12vh,90px);font-size:1.6rem;background:#050816cc;border:2px solid;border-radius:14px;touch-action:none;cursor:pointer;box-shadow:0 0 14px currentColor,inset 0 0 12px #ffffff18}
+.grp button:active{background:#ffffff33}
+#pad.solo .grp{flex:1;justify-content:space-between}
+#pad.solo .grp button{width:min(46%,230px);height:clamp(66px,16vh,110px)}
+/* landscape de celular: botões sobre o jogo */
+@media (orientation:landscape) and (max-height:520px){
+ #pad{position:absolute;bottom:0;left:0;right:0;pointer-events:none;padding-top:0}
+ .grp button{pointer-events:auto;opacity:.75;height:clamp(50px,20vh,76px)}
+ #pad.solo .grp button{width:clamp(90px,22vw,170px);height:clamp(56px,22vh,84px)}
+ #pad.solo .grp{pointer-events:none}
+}
+/* mouse + teclado: sem botões na tela */
+@media (hover:hover) and (pointer:fine){#pad{display:none}#rot{display:none!important}}
